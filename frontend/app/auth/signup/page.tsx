@@ -18,9 +18,6 @@ export default function SignupPage() {
     email: '',
     password: '',
   });
-  const [selectedRole, setSelectedRole] = useState<'owner' | 'clinic' | null>(
-    null
-  );
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const [clinicName, setClinicName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +30,6 @@ export default function SignupPage() {
   };
 
   const handleRoleSelect = (role: 'owner' | 'clinic') => {
-    setSelectedRole(role);
     if (role === 'owner') {
       setStep('owner-details');
     } else {

@@ -6,7 +6,6 @@ import {
   Search,
   Filter,
   ChevronRight,
-  AlertCircle,
   Lock,
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
