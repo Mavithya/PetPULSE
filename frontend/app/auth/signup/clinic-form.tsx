@@ -6,7 +6,6 @@ import {
   Phone,
   MapPin,
   FileText,
-  Clock,
   Upload,
   CheckCircle,
 } from 'lucide-react';
