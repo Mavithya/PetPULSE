@@ -13,36 +13,51 @@ export default function LoginPage() {
   const { login } = useAuth();
   const router = useRouter();
 
+  // Admin credentials
+  const ADMIN_EMAIL = 'admin@drpaw.com';
+  const ADMIN_PASSWORD = 'admin123';
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock login - in a real app, verify credentials
-    login('owner', {
-      id: '1',
-      name: 'Sarah Jenkins',
-      email: email,
-      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=faces&q=80',
-    });
-    router.push('/dashboard');
+    
+    // Check if admin credentials
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+      login('admin', {
+        id: 'admin-1',
+        name: 'Admin User',
+        email: email,
+      });
+      router.push('/admin/dashboard');
+    } else {
+      // Default owner role for any other login
+      login('owner', {
+        id: '1',
+        name: 'Sarah Jenkins',
+        email: email,
+        avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=faces&q=80',
+      });
+      router.push('/dashboard');
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-4">
+    <div className="flex items-center justify-center min-h-screen p-4 bg-slate-50 dark:bg-slate-950">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 overflow-hidden"
+        className="w-full max-w-md overflow-hidden bg-white border shadow-xl dark:bg-slate-900 rounded-2xl border-slate-100 dark:border-slate-800"
       >
         <div className="p-8">
           <div className="flex justify-center mb-8">
-            <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center text-primary-600 dark:text-primary-400">
+            <div className="flex items-center justify-center w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl text-primary-600 dark:text-primary-400">
               <Dog className="w-8 h-8" />
             </div>
           </div>
 
-          <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-2">
+          <h2 className="mb-2 text-2xl font-bold text-center text-slate-900 dark:text-white">
             Welcome back to Dr. Paw
           </h2>
-          <p className="text-center text-slate-500 dark:text-slate-400 mb-8">
+          <p className="mb-8 text-center text-slate-500 dark:text-slate-400">
             Enter your details to access your account.
           </p>
 
@@ -52,7 +67,7 @@ export default function LoginPage() {
                 Email
               </label>
               <div className="relative">
-                <Mail className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                <Mail className="absolute w-5 h-5 -translate-y-1/2 left-3 top-1/2 text-slate-400" />
                 <input
                   type="email"
                   required
@@ -69,7 +84,7 @@ export default function LoginPage() {
                 Password
               </label>
               <div className="relative">
-                <Lock className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                <Lock className="absolute w-5 h-5 -translate-y-1/2 left-3 top-1/2 text-slate-400" />
                 <input
                   type="password"
                   required
@@ -89,7 +104,7 @@ export default function LoginPage() {
                 />
                 <span className="text-slate-600 dark:text-slate-400">Remember me</span>
               </label>
-              <Link href="#" className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium">
+              <Link href="#" className="font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">
                 Forgot password?
               </Link>
             </div>
@@ -103,10 +118,13 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <div className="mt-6 text-center text-sm">
+          <div className="mt-6 text-sm text-center">
             <span className="text-slate-600 dark:text-slate-400">
               Don't have an account?{' '}
-              <Link href="/auth/signup" className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium">
+              <Link
+                href="/auth/signup"
+                className="font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+              >
                 Sign up
               </Link>
             </span>

@@ -2,13 +2,17 @@
 
 import React, { useState, createContext, useContext } from 'react';
 
-export type Role = 'owner' | 'vet' | null;
+export type Role = 'owner' | 'clinic' | 'admin' | null;
 
 interface User {
   id: string;
   name: string;
   email: string;
   avatar?: string;
+  role?: 'owner' | 'clinic' | 'admin';
+  clinicName?: string;
+  verificationStatus?: 'pending' | 'approved' | 'rejected';
+  submittedDate?: string;
 }
 
 interface AuthContextType {

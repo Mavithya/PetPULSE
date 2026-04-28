@@ -10,13 +10,13 @@ export default function RoleSelectionPage() {
   const { login } = useAuth();
   const router = useRouter();
 
-  const handleSelectRole = (role: 'owner' | 'vet') => {
+  const handleSelectRole = (role: 'owner' | 'clinic') => {
     login(role, {
       id: 'new-user',
       name: 'New User',
       email: 'user@example.com',
     });
-    router.push(role === 'vet' ? '/vet/dashboard' : '/dashboard');
+    router.push(role === 'clinic' ? '/clinic/dashboard' : '/dashboard');
   };
 
   return (
@@ -58,7 +58,7 @@ export default function RoleSelectionPage() {
           <motion.button
             whileHover={{ y: -5 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => handleSelectRole('vet')}
+            onClick={() => handleSelectRole('clinic')}
             className="group relative bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm hover:shadow-xl border-2 border-transparent hover:border-secondary-500 dark:border-slate-800 dark:hover:border-secondary-500 transition-all text-left overflow-hidden"
           >
             <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
@@ -70,10 +70,10 @@ export default function RoleSelectionPage() {
                 <Stethoscope className="w-8 h-8" />
               </div>
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
-                Veterinarian
+                Veterinary Clinic
               </h2>
               <p className="text-slate-500 dark:text-slate-400 leading-relaxed">
-                I am a vet looking to manage patient records, increase visibility, and connect with pet owners.
+                I represent a veterinary clinic providing care for dogs and cats. I want to manage patient records, upload reports, and connect with pet owners.
               </p>
             </div>
           </motion.button>

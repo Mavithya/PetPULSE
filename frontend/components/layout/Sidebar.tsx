@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import {
   LayoutDashboard,
@@ -23,6 +23,7 @@ interface SidebarProps {
 export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   const { role, logout } = useAuth();
   const pathname = usePathname();
+  const router = useRouter();
 
   const ownerLinks = [
     { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -32,12 +33,12 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   ];
 
   const vetLinks = [
-    { href: '/vet/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-    { href: '/vet/patients', icon: Users, label: 'Patients' },
-    { href: '/vet/profile', icon: UserCircle, label: 'My Profile' },
+    { href: '/clinic/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+    { href: '/clinic/patients', icon: Users, label: 'Clinic Patients' },
+    { href: '/clinic/profile', icon: UserCircle, label: 'Clinic Profile' },
   ];
 
-  const links = role === 'vet' ? vetLinks : ownerLinks;
+  const links = role === 'clinic' ? vetLinks : ownerLinks;
   const handleClose = () => setIsOpen(false);
 
   return (
@@ -45,7 +46,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
       {/* Mobile overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-slate-900/50 z-40 lg:hidden"
+          className="fixed inset-0 z-40 bg-slate-900/50 lg:hidden"
           onClick={handleClose}
         />
       )}
@@ -57,8 +58,8 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         }`}
       >
         {/* Logo area */}
-        <div className="h-16 flex items-center justify-between px-6 border-b border-slate-200 dark:border-slate-800">
-          <div className="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-bold text-xl">
+        <div className="flex items-center justify-between h-16 px-6 border-b border-slate-200 dark:border-slate-800">
+          <div className="flex items-center gap-2 text-xl font-bold text-primary-600 dark:text-primary-400">
             <Dog className="w-6 h-6" />
             <span>Dr. Paw</span>
           </div>
@@ -98,16 +99,19 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
 
         {/* Bottom actions */}
         <div className="p-4 border-t border-slate-200 dark:border-slate-800">
-          <div className="mb-4 px-3 py-2 bg-slate-50 dark:bg-slate-800 rounded-lg flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+          <div className="flex items-center gap-2 px-3 py-2 mb-4 text-sm rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
             <div
               className={`w-2 h-2 rounded-full ${
-                role === 'vet' ? 'bg-secondary-500' : 'bg-primary-500'
+                role === 'clinic' ? 'bg-secondary-500' : 'bg-primary-500'
               }`}
             />
-            Logged in as {role === 'vet' ? 'Veterinarian' : 'Pet Owner'}
+            Logged in as {role === 'clinic' ? 'Clinic' : 'Pet Owner'}
           </div>
           <button
-            onClick={logout}
+            onClick={() => {
+              logout();
+              router.push('/auth/login');
+            }}
             className="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20 transition-colors"
           >
             <LogOut className="w-5 h-5" />
