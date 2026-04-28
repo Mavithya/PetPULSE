@@ -8,7 +8,6 @@ import {
   Clock,
   CheckCircle2,
   MapPin,
-  Phone,
   Lock,
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';

@@ -6,7 +6,7 @@ import { Dog, Mail, Lock, User, ArrowRight, ArrowLeft, Stethoscope } from 'lucid
 import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import { PetOwnerSignupForm, type PetOwnerFormData } from './pet-owner-form';
-import { ClinicSignupForm } from './clinic-form';
+import { ClinicSignupForm, type ClinicFormData } from './clinic-form';
 import { ClinicVerificationModal } from './verification-modal';
 
 type SignupStep = 'basic' | 'role' | 'owner-details' | 'clinic-details';
@@ -59,7 +59,7 @@ export default function SignupPage() {
     }
   };
 
-  const handleClinicSignup = async (formData: any) => {
+  const handleClinicSignup = async (formData: ClinicFormData) => {
     setIsLoading(true);
     try {
       // Simulate API call

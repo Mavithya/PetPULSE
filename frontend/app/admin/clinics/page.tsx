@@ -405,7 +405,7 @@ export default function AdminClinicVerification() {
       {/* Clinic Details Modal */}
       {selectedClinic.id && (
         <ClinicDetailsModal
-          clinic={PENDING_CLINICS.find((c) => c.id === selectedClinic.id)!}
+          clinic={PENDING_CLINICS.find((c) => c.id === selectedClinic.id) || PENDING_CLINICS[0]}
           onClose={() => setSelectedClinic({ id: '', action: null })}
           onAction={handleAction}
         />

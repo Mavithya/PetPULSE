@@ -48,7 +48,6 @@ export function PetOwnerSignupForm({
   const [showPassword, setShowPassword] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [errors, setErrors] = useState<Partial<Record<keyof PetOwnerFormData, string>>>({});
-  const [touched, setTouched] = useState<Partial<Record<keyof PetOwnerFormData, boolean>>>({});
 
   // Password strength checker
   const checkPasswordStrength = (pwd: string): number => {
@@ -96,7 +95,6 @@ export function PetOwnerSignupForm({
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setTouched((prev) => ({ ...prev, [name]: true }));
 
     // Validation
     const newErrors = { ...errors };

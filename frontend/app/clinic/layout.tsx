@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { DashboardLayout } from '@/app/layout/DashboardLayout';
 import { useAuth } from '@/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
 
 export default function ClinicLayout({
   children,
@@ -11,7 +10,6 @@ export default function ClinicLayout({
   children: React.ReactNode;
 }) {
   const { role, isAuthenticated } = useAuth();
-  const router = useRouter();
 
   // Redirect if not a clinic
   if (!isAuthenticated || role !== 'clinic') {

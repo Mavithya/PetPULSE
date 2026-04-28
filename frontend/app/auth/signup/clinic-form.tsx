@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-interface ClinicFormData {
+export interface ClinicFormData {
   clinicName: string;
   contactNumber: string;
   address: string;
