@@ -1,43 +1,51 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Search, MapPin, Star, Filter, MapPinIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const MOCK_VETS = [
+const MOCK_CLINICS = [
   {
     id: '1',
-    name: 'Dr. Sarah Jenkins',
-    clinic: 'Paws & Claws Veterinary Clinic',
-    specialization: ['Dogs', 'Cats', 'Surgery'],
+    clinicName: 'Paws & Claws Veterinary Clinic',
+    doctors: ['Dr. Sarah Jenkins', 'Dr. David Martinez', 'Dr. Lisa Wong'],
+    specializations: ['Dogs', 'Cats', 'Surgery'],
     rating: 4.9,
     reviews: 128,
     distance: '2.4 km',
-    imageUrl: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1631217343661-1d1971f5a196?w=400&h=400&fit=crop',
+    operatingHours: 'Mon-Fri: 8am-6pm, Sat: 9am-3pm',
+    address: '123 Pet Street, New York, NY',
   },
   {
     id: '2',
-    name: 'Dr. Michael Chen',
-    clinic: 'City Center Animal Hospital',
-    specialization: ['Cats Only', 'Internal Medicine'],
+    clinicName: 'City Center Animal Hospital',
+    doctors: ['Dr. Michael Chen', 'Dr. Anna Rodriguez', 'Dr. James Peterson'],
+    specializations: ['Cats Only', 'Internal Medicine', 'Emergency Care'],
     rating: 4.8,
     reviews: 95,
     distance: '3.1 km',
-    imageUrl: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1631217343661-1d1971f5a196?w=400&h=400&fit=crop',
+    operatingHours: '24/7 Emergency',
+    address: '456 Animal Ave, New York, NY',
   },
   {
     id: '3',
-    name: 'Dr. Emily Rodriguez',
-    clinic: 'Happy Tails Vet Care',
-    specialization: ['Dogs', 'Dermatology'],
+    clinicName: 'Happy Tails Vet Care',
+    doctors: ['Dr. Emily Rodriguez', 'Dr. Robert Chen', 'Dr. Sarah Kim'],
+    specializations: ['Dogs', 'Dermatology', 'Behavior'],
     rating: 4.7,
     reviews: 210,
     distance: '5.0 km',
-    imageUrl: 'https://images.unsplash.com/photo-1594824436998-058d0159a5e3?w=400&h=400&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1631217343661-1d1971f5a196?w=400&h=400&fit=crop',
+    operatingHours: 'Mon-Sat: 8am-5pm, Sun: 10am-2pm',
+    address: '789 Vet Lane, New York, NY',
   },
 ];
 
 export default function FindVets() {
+  const router = useRouter();
   const [activeFilter, setActiveFilter] = useState('All');
   const filters = ['All', 'Dogs', 'Cats', 'Surgery', 'Highest Rated'];
 
@@ -49,7 +57,7 @@ export default function FindVets() {
 
         <div className="relative z-10 max-w-2xl">
           <h1 className="mb-4 text-3xl font-bold text-slate-900 dark:text-white">
-            Find the perfect vet for your furry friend
+            Find the perfect vet clinic for your furry friend
           </h1>
 
           <div className="flex flex-col gap-3 sm:flex-row">
@@ -100,9 +108,9 @@ export default function FindVets() {
 
       {/* Results Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {MOCK_VETS.map((vet, index) => (
+        {MOCK_CLINICS.map((clinic, index) => (
           <motion.div
-            key={vet.id}
+            key={clinic.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
@@ -110,18 +118,18 @@ export default function FindVets() {
           >
             <div className="relative h-48 overflow-hidden">
               <img
-                src={vet.imageUrl}
-                alt={vet.name}
+                src={clinic.imageUrl}
+                alt={clinic.clinicName}
                 className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
               />
             </div>
 
             <div className="p-5">
               <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                {vet.name}
+                {clinic.clinicName}
               </h3>
-              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                {vet.clinic}
+              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                {clinic.address}
               </p>
 
               <div className="flex items-center gap-2 mt-3">
@@ -130,7 +138,7 @@ export default function FindVets() {
                     <Star
                       key={i}
                       className={`w-4 h-4 ${
-                        i < Math.floor(vet.rating)
+                        i < Math.floor(clinic.rating)
                           ? 'fill-amber-400 text-amber-400'
                           : 'text-slate-300 dark:text-slate-600'
                       }`}
@@ -138,33 +146,56 @@ export default function FindVets() {
                   ))}
                 </div>
                 <span className="text-sm font-medium text-slate-900 dark:text-white">
-                  {vet.rating}
+                  {clinic.rating}
                 </span>
                 <span className="text-xs text-slate-500 dark:text-slate-400">
-                  ({vet.reviews})
+                  ({clinic.reviews})
                 </span>
               </div>
 
+              {/* Clinic Info */}
               <div className="mt-4 space-y-2">
                 <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
                   <MapPinIcon className="w-4 h-4" />
-                  {vet.distance}
+                  {clinic.distance}
                 </div>
 
-                <div className="flex flex-wrap gap-2">
-                  {vet.specialization.map((spec) => (
-                    <span
-                      key={spec}
-                      className="text-xs bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 px-2.5 py-1 rounded-full"
-                    >
-                      {spec}
-                    </span>
+                <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                  {clinic.operatingHours}
+                </div>
+              </div>
+
+              {/* Specializations */}
+              <div className="flex flex-wrap gap-2 mt-4">
+                {clinic.specializations.map((spec) => (
+                  <span
+                    key={spec}
+                    className="text-xs bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 px-2.5 py-1 rounded-full"
+                  >
+                    {spec}
+                  </span>
+                ))}
+              </div>
+
+              {/* Doctors Team */}
+              <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+                <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2">
+                  Our Team ({clinic.doctors.length})
+                </p>
+                <div className="space-y-1">
+                  {clinic.doctors.map((doctor) => (
+                    <p key={doctor} className="text-xs text-slate-500 dark:text-slate-400">
+                      • {doctor}
+                    </p>
                   ))}
                 </div>
               </div>
 
-              <button className="w-full mt-4 px-4 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors">
-                View Profile
+              <button
+                onClick={() => router.push(`/clinic-profile/${clinic.id}`)}
+                className="w-full mt-4 px-4 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors"
+              >
+                View Clinic Profile
               </button>
             </div>
           </motion.div>
