@@ -17,19 +17,36 @@ export default function LoginPage() {
   const ADMIN_EMAIL = 'admin@drpaw.com';
   const ADMIN_PASSWORD = 'admin123';
 
+  // Clinic credentials
+  const CLINIC_EMAIL = 'clinic@mavi.com';
+  const CLINIC_PASSWORD = '123';
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Check if admin credentials
-    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedPassword = password.trim();
+    
+    if (normalizedEmail === ADMIN_EMAIL.toLowerCase() && normalizedPassword === ADMIN_PASSWORD) {
       login('admin', {
         id: 'admin-1',
         name: 'Admin User',
         email: email,
       });
       router.push('/admin/dashboard');
+    } else if (normalizedEmail === CLINIC_EMAIL.toLowerCase() && normalizedPassword === CLINIC_PASSWORD) {
+      // Clinic with full access
+      login('clinic', {
+        id: 'clinic-1',
+        name: 'Mavi Clinic',
+        email: email,
+        clinicName: 'Mavi',
+        verificationStatus: 'approved',
+        role: 'clinic',
+      });
+      router.push('/clinic/dashboard');
     } else {
-      // Default owner role for any other login
+      // Default owner role
       login('owner', {
         id: '1',
         name: 'Sarah Jenkins',

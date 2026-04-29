@@ -65,14 +65,14 @@ export default function ClinicDashboard() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4 flex items-start gap-4"
+          className="flex items-start gap-4 p-4 border rounded-lg bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800"
         >
           <Clock className="w-6 h-6 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
           <div className="flex-1">
             <h3 className="font-semibold text-amber-900 dark:text-amber-200">
               Your clinic is under verification ⏳
             </h3>
-            <p className="text-sm text-amber-800 dark:text-amber-300 mt-1">
+            <p className="mt-1 text-sm text-amber-800 dark:text-amber-300">
               You will gain full access once approved by admin. Some features are currently disabled.
             </p>
           </div>
@@ -83,14 +83,14 @@ export default function ClinicDashboard() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 flex items-start gap-4"
+          className="flex items-start gap-4 p-4 border border-red-200 rounded-lg bg-red-50 dark:bg-red-900/20 dark:border-red-800"
         >
           <AlertCircle className="w-6 h-6 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
           <div className="flex-1">
             <h3 className="font-semibold text-red-900 dark:text-red-200">
               Verification Rejected
             </h3>
-            <p className="text-sm text-red-800 dark:text-red-300 mt-1">
+            <p className="mt-1 text-sm text-red-800 dark:text-red-300">
               Please contact support or resubmit your clinic information with the required documents.
             </p>
           </div>
@@ -101,14 +101,14 @@ export default function ClinicDashboard() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4 flex items-start gap-4"
+          className="flex items-start gap-4 p-4 border border-green-200 rounded-lg bg-green-50 dark:bg-green-900/20 dark:border-green-800"
         >
           <CheckCircle2 className="w-6 h-6 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
           <div className="flex-1">
             <h3 className="font-semibold text-green-900 dark:text-green-200">
               Verified Clinic ✅
             </h3>
-            <p className="text-sm text-green-800 dark:text-green-300 mt-1">
+            <p className="mt-1 text-sm text-green-800 dark:text-green-300">
               Your clinic is now visible to pet owners and all features are unlocked.
             </p>
           </div>
@@ -116,12 +116,12 @@ export default function ClinicDashboard() {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
             Welcome back, {clinicName}
           </h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">
+          <p className="mt-1 text-slate-500 dark:text-slate-400">
             Here's an overview of your clinic activity.
           </p>
         </div>
@@ -132,11 +132,11 @@ export default function ClinicDashboard() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm"
+          className="p-6 bg-white border shadow-sm dark:bg-slate-900 rounded-2xl border-slate-200 dark:border-slate-800"
         >
           <div className="flex items-start justify-between mb-4">
             <div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">
+              <h3 className="mb-4 text-lg font-bold text-slate-900 dark:text-white">
                 Verification Status
               </h3>
               <div className="space-y-3">
@@ -172,9 +172,9 @@ export default function ClinicDashboard() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700"
+          className="p-6 border bg-slate-50 dark:bg-slate-800/50 rounded-2xl border-slate-200 dark:border-slate-700"
         >
-          <h3 className="font-semibold text-slate-900 dark:text-white mb-4">
+          <h3 className="mb-4 font-semibold text-slate-900 dark:text-white">
             Limited Access
           </h3>
           <div className="space-y-3">
@@ -202,7 +202,7 @@ export default function ClinicDashboard() {
 
       {/* Stats Grid - Visible only if verified or show demo */}
       {!isPending && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {DEMO_STATS.map((stat, index) => {
             const Icon = stat.icon;
             return (
@@ -211,7 +211,7 @@ export default function ClinicDashboard() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm"
+                className="p-6 bg-white border shadow-sm dark:bg-slate-900 rounded-2xl border-slate-200 dark:border-slate-800"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className={`p-3 rounded-xl ${stat.bgLight} ${stat.textLight}`}>
@@ -219,13 +219,13 @@ export default function ClinicDashboard() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-1">
+                  <h3 className="mb-1 text-3xl font-bold text-slate-900 dark:text-white">
                     {stat.value}
                   </h3>
                   <p className="text-sm font-medium text-slate-600 dark:text-slate-300">
                     {stat.title}
                   </p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                     {stat.trend}
                   </p>
                 </div>
@@ -240,9 +240,9 @@ export default function ClinicDashboard() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-2xl border border-blue-200 dark:border-blue-800"
+          className="p-6 border border-blue-200 bg-blue-50 dark:bg-blue-900/20 rounded-2xl dark:border-blue-800"
         >
-          <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-4">
+          <h3 className="mb-4 font-semibold text-blue-900 dark:text-blue-200">
             You can already:
           </h3>
           <div className="space-y-2">
