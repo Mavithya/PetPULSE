@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, createContext, useContext } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 
 export type Role = 'owner' | 'clinic' | 'admin' | null;
 
@@ -26,7 +26,6 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Mock initial state for demonstration
 const mockUser: User = {
   id: '1',
   name: 'Sarah Jenkins',
@@ -35,20 +34,43 @@ const mockUser: User = {
 };
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(true); // Default to true for demo
-  const [role, setRoleState] = useState<Role>('owner'); // Default to owner for demo
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [role, setRoleState] = useState<Role>('owner');
   const [user, setUser] = useState<User | null>(mockUser);
+
+  // Hydrate from localStorage
+  useEffect(() => {
+    const savedRole = localStorage.getItem('authRole') as Role;
+    const savedUser = localStorage.getItem('authUser');
+    const savedAuth = localStorage.getItem('isAuthenticated');
+
+    if (savedRole && savedUser) {
+      setRoleState(savedRole);
+      setUser(JSON.parse(savedUser));
+      setIsAuthenticated(savedAuth === 'true');
+    }
+  }, []);
 
   const login = (newRole: Role, newUser: User) => {
     setIsAuthenticated(true);
     setRoleState(newRole);
     setUser(newUser);
+    
+    // Persist to localStorage
+    localStorage.setItem('authRole', newRole || '');
+    localStorage.setItem('authUser', JSON.stringify(newUser));
+    localStorage.setItem('isAuthenticated', 'true');
   };
 
   const logout = () => {
     setIsAuthenticated(false);
     setRoleState(null);
     setUser(null);
+    
+    // Clear localStorage
+    localStorage.removeItem('authRole');
+    localStorage.removeItem('authUser');
+    localStorage.removeItem('isAuthenticated');
   };
 
   const setRole = (newRole: Role) => {
